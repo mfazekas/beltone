@@ -27,7 +27,6 @@ outgoing = "m"
 while not outgoing == "_quit"
   puts "type:"
   outgoing = gets.chomp
-  puts "Sending: '#{outgoing}'"
   skynet.send outgoing unless outgoing.downcase == "_quit"
 end
 

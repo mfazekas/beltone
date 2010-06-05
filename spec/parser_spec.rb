@@ -44,6 +44,11 @@ describe "moving the cursor" do
     @mock_screen.should_receive(:set_cursor).with 2, 3
     @parser.parse_token @vt_output.set_cursor(2, 3).to_s
   end
+
+  it "should return the cursor to home" do
+    @mock_screen.should_receive(:home_cursor).with no_args()
+    @parser.parse_token @vt_output.home_cursor.to_s
+  end
 end
 
 
@@ -83,5 +88,4 @@ describe "erasing things" do
     @mock_screen.should_receive(:erase_to_beginning_of_screen).with no_args
     @parser.parse_token @vt_output.erase(:to_beginning, :screen).to_s
   end
-
 end

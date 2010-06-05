@@ -10,18 +10,13 @@ class Screen
   def initialize
     @cursor_x = 0
     @cursor_y = 0
-    @lines = Array.new
-
-    WIDTH.times do
-      vertical_line = Array.new
-      HEIGHT.times do
-        vertical_line << Cell.new
-      end
-      @lines << vertical_line
-    end
+    erase_entire_of_screen
   end
+    
+  def set_cursor x, y = @cursor_y
+    x = 0 unless (0...WIDTH).include?(x)
+    y = 0 unless (0...HEIGHT).include?(y)
 
-  def set_cursor x, y
     @cursor_x = x
     @cursor_y = y
   end
@@ -33,11 +28,11 @@ class Screen
   def text message
     message.each_byte do |char|
       set_character char.chr
-      @cursor_x += +1
+      set_cursor @cursor_x + 1
     end
   end
 
-  def get_line line
+  def line line
     output = ""
     @lines.each do |vertical_line|
       output << vertical_line[line].to_s
@@ -45,8 +40,20 @@ class Screen
     output
   end
 
-  def erase start, length, count
+  def home_cursor
+    @cursor_x = 0 
+  end
 
+  def erase_entire_of_screen
+    @lines = Array.new
+
+    WIDTH.times do
+      vertical_line = Array.new
+      HEIGHT.times do
+        vertical_line << Cell.new
+      end
+      @lines << vertical_line
+    end 
   end
 
   def erase_to_end_of_line
@@ -56,4 +63,17 @@ class Screen
     end
   end
 
+  def to_s
+    output = ''
+    (0..(HEIGHT - 1)).each do |y_index|
+      (0..(WIDTH - 1)).each do |x_index|
+        output << @lines[x_index][y_index].to_s
+      end
+      output << "\n"
+
+    end
+    output
+  end
 end
+
+

@@ -9,18 +9,30 @@ class Parser
     @patterns = [OutputPattern.new('text', /^([^\e\016\017]+)/) { |text| screen.text text },
                  OutputPattern.new('set cursor', /^\e\[(\d+);(\d+)[H|f]/) { |y, x| screen.set_cursor x.to_i, y.to_i },
                  OutputPattern.new('erase to end of line', /^\e\[(\d)*([K|J])/) {
-                         |direction, type| screen.send "erase_#{ERASE_DIRECTIONS[direction.to_i]}_of_#{ERASE_TYPES[type]}"},
+                         |direction, type| screen.send "erase_#{ERASE_DIRECTIONS[direction.to_i]}_of_#{ERASE_TYPES[type]}" },
+                 OutputPattern.new('home', /^\e\[[H|f]/) {screen.home_cursor},
+
+    OutputPattern.new('ignored set expanded mode', /^\e\[\?(\d+)h/) {},
+    OutputPattern.new('ignored scroll region', /^\e\[(\d;)*(\d)*r/) {},
+    OutputPattern.new('ignored set rendition', /^\e\[(\d+;)*(\d+)*m/) {},
+    OutputPattern.new('ignored reset mode', /^\e\[(\d;)*(\d)*l/) {},
+    OutputPattern.new('ignored reset rxpanded mode', /^\e\[\?(\d;)*(\d)*l/) {},
+    OutputPattern.new('ignored ASCII - g0', /^\e\(B/) {},
+    OutputPattern.new('ignored application keypad', /^\e=/) {},
+    OutputPattern.new('ignored ?', /^\e\[(\d+)d/) {},
+    OutputPattern.new('ignored ?', /^\e\[(\d+)G/) {},
+
     ]
+    @non_matched = ""
   end
 
   def parse_token tokens
     rest_of_tokens = ""
     @patterns.each do |output_pattern|
       rest_of_tokens = output_pattern.match tokens
-
       return rest_of_tokens if rest_of_tokens
     end
-    raise "didn't match '#{tokens}'"
+    raise "didn't match '#{tokens.inspect}'"
     nil
   end
 

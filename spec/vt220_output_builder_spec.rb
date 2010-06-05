@@ -18,7 +18,7 @@ describe "VT220 output builder" do
   describe "Making cursor commands" do
 
     it "should create a set the cursor to some coordinates" do
-      @vt_command.set_cursor(64, 10).to_s.should == "\e[10;64H"
+      @vt_command.set_cursor(64, 10).to_s.should match /^\e\[10;64[H|f]$/
     end
 
     it "should move the cursor then write some text" do
@@ -40,6 +40,10 @@ describe "VT220 output builder" do
 
     it "should move the cursor right" do
       @vt_command.move_cursor(:right).should.to_s == "\e[1C"
+    end
+
+    it "should move the cursor back to home" do
+      @vt_command.home_cursor.to_s.should match /^\e\[[H|f]$/
     end
 
     it "should erase things" do

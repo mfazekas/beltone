@@ -1,12 +1,17 @@
 require 'net/telnet'
+require 'parser'
+require 'screen'
 
 class TerminalSession
   def initialize host, port = 23, timeout = 30
 
     @telnet_session = Net::Telnet.new(
-            "Host"       => host,
-            "Timeout"   => timeout
+            "Host"    => host,
+            "Port"    => port,
+            "Timeout" => timeout
     )
+    @screen = Screen.new
+    @parser = Parser.new(@screen)
   end
 
   def login user, password
@@ -30,9 +35,11 @@ class TerminalSession
     incoming
   end
 
-  def send arg, timeout = 1
-    @sock.print arg
-    message =  listen timeout
-    puts "receiving: '#{message.inspect}'"
+  def send outgoing, timeout = 1
+    puts "Sending: '#{outgoing}'"
+    @sock.print outgoing
+    incoming =  listen timeout
+    puts "receiving: '#{incoming.inspect}'"
+    @parser.read_tokens incoming
   end
 end

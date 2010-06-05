@@ -11,6 +11,8 @@ class Vt220OutputBuilder
 
   ERASE_TYPES = {:line => 'K', :screen => 'J'}
 
+  CURSOR_COMMAND = ['H', 'f'] #h and f at the end of a cursor command are equivalent
+
 
   def initialize
     @output = ""
@@ -25,15 +27,23 @@ class Vt220OutputBuilder
     @output
   end
 
+  def cursor_suffix
+    CURSOR_COMMAND[rand 2]
+  end
+
   def set_cursor(x, y)
     #all the beltone methods expect width, height vt220 actually uses height, width 
-    @output << "\e[#{y};#{x}H"
+    @output << "\e[#{y};#{x}#{cursor_suffix}"
     self
   end
 
   def move_cursor(direction, delta=1)
-    @output << "\e[#{delta}#{CURSOR_DIRECTION[direction]}"
+    @output << "\e[#{delta}#{cursor_suffix}"
     self
+  end
+
+  def home_cursor
+    @output <<"\e[#{cursor_suffix}"
   end
 
   def erase direction, type
