@@ -14,8 +14,8 @@ class OutputPattern
       args.shift
       run *args
       return match.post_match
-    else
-      return false
+      else
+      return nil
     end
   end
 

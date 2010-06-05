@@ -42,6 +42,16 @@ describe "VT220 output builder" do
       @vt_command.move_cursor(:right).should.to_s == "\e[1C"
     end
 
+    it "should erase things" do
+      @vt_command.erase(:entire, :line).should.to_s == "\e[2K"
+      @vt_command.erase(:to_end, :line).should.to_s == "\e[K"
+      @vt_command.erase(:to_beginning, :line).should.to_s == "\e[1K"
+
+      @vt_command.erase(:entire, :screen).should.to_s == "\e[2J"
+      @vt_command.erase(:to_end, :screen).should.to_s == "\e[J"
+      @vt_command.erase(:to_beginning, :screen).should.to_s == "\e[1J"
+    end
+
   end
 
 end

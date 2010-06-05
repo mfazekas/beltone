@@ -5,7 +5,12 @@ class Cell
     @character = ' '
   end
 
+  def erase
+    @character = ' '
+  end
+
   def to_s
     @character
   end
+
 end

@@ -19,8 +19,8 @@ describe "output processor" do
     @output_pattern.match('123 word').should == ''
   end
 
-  it "should return false if the vt command doesn't matches it pattern" do
-    @output_pattern.match('abc 123').should == false
+  it "should return nil if the vt command doesn't matches it pattern" do
+    @output_pattern.match('abc 123').should == nil
   end
 
 end

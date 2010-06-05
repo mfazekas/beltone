@@ -33,4 +33,15 @@ describe "Screen" do
       @screen.cursor_y.should == 10
     end
   end
+
+  describe "erasing sections" do
+
+    it "erase to the end of the line" do
+      @screen.text "0123456789" + '.' * 70
+      @screen.set_cursor 5,0
+      @screen.erase :to_end, :line
+      @screen.get_line(0).should == "01234" + ' ' * 75
+    end
+
+  end
 end

@@ -1,9 +1,16 @@
 class Vt220OutputBuilder
 
-  CURSOR_DIRECTION_TO_COMMAND = {:up => 'A',
-                                 :down => 'B',
-                                 :left => 'D',
-                                 :right => 'C',}
+  CURSOR_DIRECTION = {:up => 'A',
+                      :down => 'B',
+                      :left => 'D',
+                      :right => 'C', }
+
+  ERASE_DIRECTIONS = {:to_end => '',
+                      :to_beginning => '1',
+                      :entire => '2', }
+
+  ERASE_TYPES = {:line => 'K', :screen => 'J'}
+
 
   def initialize
     @output = ""
@@ -25,10 +32,12 @@ class Vt220OutputBuilder
   end
 
   def move_cursor(direction, delta=1)
-    @output << "\e[#{delta}#{CURSOR_DIRECTION_TO_COMMAND[direction]}"
+    @output << "\e[#{delta}#{CURSOR_DIRECTION[direction]}"
     self
   end
 
-
+  def erase direction, type
+    @output << "\e[#{ERASE_DIRECTIONS[direction]}#{ERASE_TYPES[type]}"
+  end
 
 end

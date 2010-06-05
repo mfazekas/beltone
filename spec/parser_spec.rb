@@ -23,25 +23,65 @@ describe "parser" do
   it "should parse several tokens and talk to the screen" do
     @mock_screen.should_receive(:set_cursor).with 32, 5
     @mock_screen.should_receive(:text).with 'wow'
-    @parser.read_tokens(@vt_output.set_cursor(32, 5).text("wow").to_s)
+    @parser.read_tokens @vt_output.set_cursor(32, 5).text("wow").to_s
+  end
+
+  it "should enter text" do
+    @mock_screen.should_receive(:text).with 'one day'
+    @parser.parse_token @vt_output.text('one day').to_s
   end
 
 end
 
-describe "parsing commands" do
+describe "moving the cursor" do
   before (:each) do
     @mock_screen = mock('Screen')
     @parser = Parser.new @mock_screen
     @vt_output = Vt220OutputBuilder.new
   end
 
-  it "should enter text" do
-    @mock_screen.should_receive(:text).with 'one day'
-    @parser.parse_token(@vt_output.text('one day').to_s)
+  it "should move the cursor" do
+    @mock_screen.should_receive(:set_cursor).with 2, 3
+    @parser.parse_token @vt_output.set_cursor(2, 3).to_s
+  end
+end
+
+
+describe "erasing things" do
+  before (:each) do
+    @mock_screen = mock('Screen')
+    @parser = Parser.new @mock_screen
+    @vt_output = Vt220OutputBuilder.new
   end
 
-  it "should move the cursor" do
-    @mock_screen.should_receive(:set_cursor).with 2, 3    
-    @parser.parse_token(@vt_output.set_cursor(2, 3).to_s)
+  it "should erase to the end of the line" do
+    @mock_screen.should_receive(:erase).with(:to_end, :line)
+    @parser.parse_token @vt_output.erase(:to_end_, :line).to_s
   end
+
+  it "should erase to the beginning of the line" do
+    @mock_screen.should_receive(:erase).with(:to_beginning, :line)
+    @parser.parse_token @vt_output.erase(:to_beginning, :line).to_s
+  end
+
+  it "should erase to the entire line" do
+    @mock_screen.should_receive(:erase).with(:entire, :line)
+    @parser.parse_token @vt_output.erase(:entire, :line).to_s
+  end
+
+  it "should erase to the screen" do
+    @mock_screen.should_receive(:erase).with(:entire, :screen)
+    @parser.parse_token @vt_output.erase(:entire, :screen).to_s
+  end
+
+  it "should erase to the end of the screen" do
+    @mock_screen.should_receive(:erase).with(:to_end, :screen)
+    @parser.parse_token @vt_output.erase(:to_end_, :screen).to_s
+  end
+
+  it "should erase to the beginning of the screen" do
+    @mock_screen.should_receive(:erase).with(:to_beginning, :screen)
+    @parser.parse_token @vt_output.erase(:to_beginning, :screen).to_s
+  end
+
 end

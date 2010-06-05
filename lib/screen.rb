@@ -45,5 +45,13 @@ class Screen
     output
   end
 
+  def erase direction, type
+    if direction == :to_end && type == :line
+      count = WIDTH - @cursor_x
+      (0..count-1).each do |index|
+        @lines[@cursor_x + index][@cursor_y].erase
+      end
+    end
+  end
 
 end
