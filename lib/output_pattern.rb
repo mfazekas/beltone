@@ -7,19 +7,19 @@ class OutputPattern
     @block = block
   end
 
-  def match token
-    match = @command_pattern.match(token)
+  def match tokens
+    match = @command_pattern.match(tokens)
     if match
       args = match.to_a
       args.shift
-      process *args
+      run *args
       return match.post_match
     else
       return false
     end
   end
 
-  def process *args
+  def run *args
     @block.call *args
   end
 end
