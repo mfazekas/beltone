@@ -1,12 +1,13 @@
 require 'output_pattern'
+require "screen"
 
 class Parser
 
   attr_accessor :patterns
 
-  def initialize
-    @patterns = [OutputPattern.new('text', /^([^\e\016\017]+)/) { |text| puts "text = '#{text}'" },
-                 OutputPattern.new('set cursor', /^\e\[(\d+);(\d+)[H|f]/) { |y, x| puts "setting cursor to #{x},#{y}" }
+  def initialize screen
+    @patterns = [OutputPattern.new('text', /^([^\e\016\017]+)/) { |text| screen.text text },
+                 OutputPattern.new('set cursor', /^\e\[(\d+);(\d+)[H|f]/) { |y, x| screen.set_cursor x.to_i,y.to_i  }
     ]
   end
 
