@@ -9,7 +9,7 @@ class Parser
     @patterns = [OutputPattern.new('text', /^([^\e\016\017]+)/) { |text| screen.text text },
                  OutputPattern.new('set cursor', /^\e\[(\d+);(\d+)[H|f]/) { |y, x| screen.set_cursor x.to_i, y.to_i },
                  OutputPattern.new('erase to end of line', /^\e\[(\d)*([K|J])/) {
-                         |direction, type| screen.erase ERASE_DIRECTIONS[direction.to_i], ERASE_TYPES[type] },
+                         |direction, type| screen.send "erase_#{ERASE_DIRECTIONS[direction.to_i]}_of_#{ERASE_TYPES[type]}"},
     ]
   end
 

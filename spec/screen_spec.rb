@@ -39,7 +39,7 @@ describe "Screen" do
     it "erase to the end of the line" do
       @screen.text "0123456789" + '.' * 70
       @screen.set_cursor 5,0
-      @screen.erase :to_end, :line
+      @screen.erase_to_end_of_line
       @screen.get_line(0).should == "01234" + ' ' * 75
     end
 

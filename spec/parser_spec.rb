@@ -55,32 +55,32 @@ describe "erasing things" do
   end
 
   it "should erase to the end of the line" do
-    @mock_screen.should_receive(:erase).with(:to_end, :line)
+    @mock_screen.should_receive(:erase_to_end_of_line).with no_args
     @parser.parse_token @vt_output.erase(:to_end_, :line).to_s
   end
 
   it "should erase to the beginning of the line" do
-    @mock_screen.should_receive(:erase).with(:to_beginning, :line)
+    @mock_screen.should_receive(:erase_to_beginning_of_line).with no_args
     @parser.parse_token @vt_output.erase(:to_beginning, :line).to_s
   end
 
   it "should erase to the entire line" do
-    @mock_screen.should_receive(:erase).with(:entire, :line)
+    @mock_screen.should_receive(:erase_entire_of_line).with no_args
     @parser.parse_token @vt_output.erase(:entire, :line).to_s
   end
 
   it "should erase to the screen" do
-    @mock_screen.should_receive(:erase).with(:entire, :screen)
+    @mock_screen.should_receive(:erase_entire_of_screen).with no_args
     @parser.parse_token @vt_output.erase(:entire, :screen).to_s
   end
 
   it "should erase to the end of the screen" do
-    @mock_screen.should_receive(:erase).with(:to_end, :screen)
+    @mock_screen.should_receive(:erase_to_end_of_screen).with no_args
     @parser.parse_token @vt_output.erase(:to_end_, :screen).to_s
   end
 
   it "should erase to the beginning of the screen" do
-    @mock_screen.should_receive(:erase).with(:to_beginning, :screen)
+    @mock_screen.should_receive(:erase_to_beginning_of_screen).with no_args
     @parser.parse_token @vt_output.erase(:to_beginning, :screen).to_s
   end
 
