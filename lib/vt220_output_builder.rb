@@ -1,5 +1,10 @@
 class Vt220OutputBuilder
 
+  CURSOR_DIRECTION_TO_COMMAND = {:up => 'A',
+                                 :down => 'B',
+                                 :left => 'D',
+                                 :right => 'C',}
+
   def initialize
     @output = ""
   end
@@ -19,6 +24,11 @@ class Vt220OutputBuilder
     self
   end
 
-  def 
+  def move_cursor(direction, delta=1)
+    @output << "\e[#{delta}#{CURSOR_DIRECTION_TO_COMMAND[direction]}"
+    self
+  end
+
+
 
 end
