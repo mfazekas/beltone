@@ -1,0 +1,5 @@
+skynet:
+  host: skynet
+  port: 23
+  user: guest
+  password: password

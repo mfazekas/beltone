@@ -45,6 +45,10 @@ class Screen
     output
   end
 
+  def erase start, length, count
+
+  end
+
   def erase_to_end_of_line
     count = WIDTH - @cursor_x
     (0..count-1).each do |index|

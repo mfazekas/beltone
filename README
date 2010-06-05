@@ -1,1 +1,9 @@
-Yeah, erm, well ... its not finished yet, more coming soon.
+Run bin/beltone.rb to start
+
+At the moment it connects uses pico as a vt220 app
+
+You will need to enable telnetd for it to work.
+sudo apt-get install telnetd (for debian like things)
+
+Telnet really isn't secure, don't do this on an externally facing machine, I also strongly recommend creating a
+guest user with very few privileges for it to talk to. 
