@@ -21,9 +21,27 @@ describe "parser" do
   end
 
   it "should parse several tokens and talk to the screen" do
-    @mock_screen.should_receive(:set_cursor).with(32,5)
-    @mock_screen.should_receive(:text).with('wow')
+    @mock_screen.should_receive(:set_cursor).with 32, 5
+    @mock_screen.should_receive(:text).with 'wow'
     @parser.read_tokens(@vt_output.set_cursor(32, 5).text("wow").to_s)
   end
 
+end
+
+describe "parsing commands" do
+  before (:each) do
+    @mock_screen = mock('Screen')
+    @parser = Parser.new @mock_screen
+    @vt_output = Vt220OutputBuilder.new
+  end
+
+  it "should enter text" do
+    @mock_screen.should_receive(:text).with 'one day'
+    @parser.parse_token(@vt_output.text('one day').to_s)
+  end
+
+  it "should move the cursor" do
+    @mock_screen.should_receive(:set_cursor).with 2, 3    
+    @parser.parse_token(@vt_output.set_cursor(2, 3).to_s)
+  end
 end
