@@ -20,6 +20,12 @@ skynet.send "export TERM=xterm\n"
 
 puts "starting pico"
 skynet.send "pico\n"
+skynet.send "hello\n"
+skynet.send "world\n"
+skynet.send "_down"
+skynet.send "lower?\n"
+
+
 
 puts "type _quit to quit interactive mode"
 
