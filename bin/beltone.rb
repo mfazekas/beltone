@@ -24,6 +24,7 @@ skynet.send "pico\n"
 puts "type _quit to quit interactive mode"
 
 outgoing = "m"
+
 while not outgoing == "_quit"
   puts "type:"
   outgoing = gets.chomp

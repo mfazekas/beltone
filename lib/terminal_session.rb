@@ -1,6 +1,7 @@
 require 'net/telnet'
 require 'parser'
 require 'screen'
+require 'vt220_input_commands'
 
 class TerminalSession
   def initialize host, port = 23, timeout = 30
@@ -36,10 +37,11 @@ class TerminalSession
   end
 
   def send outgoing, timeout = 1
-    puts "Sending: '#{outgoing}'"
+    outgoing = COMMANDS[outgoing] if COMMANDS[outgoing]
+    puts "Sending: #{outgoing.inspect}"
     @sock.print outgoing
     incoming =  listen timeout
-    puts "receiving: '#{incoming.inspect}'"
+    puts "receiving: #{incoming.inspect}"
     @parser.read_tokens incoming
     puts @screen.display
   end
