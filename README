@@ -1,9 +1,43 @@
-Run bin/beltone.rb to start
+This is a ruby program to enable automated testing on old VT220 servers.
+I don’t have a real old Dec VT220 server kicking around so I’m currently using pico accessed via telent to write it.
 
-At the moment it connects uses pico as an example vt220 app
+It’s currently in very early development, everything thats checked in seems to be working, however there are still a lot of vt220 commands not implemented yet. I’m going on holiday and will probably begin development in earnist around the end of August.
 
-You will need to enable telnetd for it to work.
-sudo apt-get install telnetd (for debian like things)
+Getting Started
+===============
 
-Telnet really isn't secure, don't do this on an externally facing machine, I also strongly recommend creating a
-guest user with very few privileges for it to talk to. 
+Set up telnet
+-------------
+You will need to enable telnet on whatever computer you are trying to connect to.
+
+On Ubuntu and probably all Debian like things you can do this by
+sudo apt-get install telnetd
+
+I’m very sure telnet isn’t considered secure these days so recommend using something like Uncomlicated fire wall to only allow local connections. I’ve also made a special account with almost no permission for testing this.
+Running Beltone
+
+Interactive Mode
+----------------
+From the root of the check out directory
+ruby bin/beltone.rb
+
+Unfortunately the name is incredibly misleading its not really all that interactive as yet. It will run pico for you then pretty much abandon you
+Unit Tests
+
+spec spec
+A complete ruby parsed VT220 screen will appear on the console in front of your very eyes!
+
+
+Todo List
+=========
+
+* understand styling, add colour
+* show where the cursor is
+* allow interactive mode to really send commands
+* make it work on windows as well as unix
+* Make it a gem
+* add rake
+* rcov
+* add cursor rules (stop it going of edge of screen)
+* set up a debug thing
+* sort out config
