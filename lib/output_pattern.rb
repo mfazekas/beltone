@@ -13,7 +13,7 @@ class OutputPattern
       args = match.to_a
       args.shift
       run *args
-      puts "matched #{@description}: #{match.inspect}"
+      #puts "matched #{@description}: #{match.inspect}"
       #puts match.post_match.inspect
       return match.post_match
       else

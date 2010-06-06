@@ -41,5 +41,6 @@ class TerminalSession
     incoming =  listen timeout
     puts "receiving: '#{incoming.inspect}'"
     @parser.read_tokens incoming
+    puts @screen.display
   end
 end

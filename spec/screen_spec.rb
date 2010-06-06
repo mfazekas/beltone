@@ -3,11 +3,12 @@ require "screen"
 
 describe "Screen" do
 
-  before (:each) do
-    @screen = Screen.new
-  end
-
   describe "new screen behaviour" do
+
+    before (:each) do
+      @screen = Screen.new
+    end
+
     it "should set the cursor to 0, 0" do
       @screen.cursor_y.should == 0
       @screen.cursor_x.should == 0
@@ -20,7 +21,22 @@ describe "Screen" do
 
   end
 
-  describe "screen commands" do
+
+  describe "entering text" do
+    before (:each) do
+      @screen = Screen.new
+    end
+
+    it "should enter text" do
+      @screen.text "hello"
+      @screen.line(0).should == "hello" + ' ' * 75
+    end
+  end
+
+  describe "moving the cursor" do
+    before (:each) do
+      @screen = Screen.new
+    end
 
     it "should display text" do
       @screen.text "hello"
@@ -40,9 +56,29 @@ describe "Screen" do
       @screen.cursor_x.should == 0
       @screen.cursor_y.should == 3
     end
+
+    it "should return a string representation of the screen" do
+      @screen.to_s.should == (' ' * 80 + "\n") * 24
+    end
+
+    it "should new line the cursor" do
+      @screen.set_cursor 43, 12
+      @screen.new_line
+      @screen.cursor_x.should == 0
+      @screen.cursor_y.should == 13
+    end
+
+    it "should move the cursor right" do
+      @screen.move_cursor_right
+      @screen.cursor_x.should == 1
+      @screen.cursor_y.should == 0
+    end
   end
 
   describe "erasing sections" do
+    before (:each) do
+      @screen = Screen.new
+    end
 
     it "erase to the end of the line" do
       @screen.text "0123456789" + '.' * 70

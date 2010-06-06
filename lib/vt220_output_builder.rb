@@ -38,16 +38,18 @@ class Vt220OutputBuilder
   end
 
   def move_cursor(direction, delta=1)
-    @output << "\e[#{delta}#{cursor_suffix}"
+    @output << "\e[#{delta}#{CURSOR_DIRECTION[direction]}"
     self
   end
 
   def home_cursor
     @output <<"\e[#{cursor_suffix}"
+    self
   end
 
   def erase direction, type
     @output << "\e[#{ERASE_DIRECTIONS[direction]}#{ERASE_TYPES[type]}"
+    self
   end
 
 end
