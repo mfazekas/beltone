@@ -1,7 +1,8 @@
-This is a ruby program to enable automated testing on old VT220 servers.
-I don’t have a real old Dec VT220 server kicking around so I’m currently using pico accessed via telent to write it.
+This is a ruby program to enable automated testing of VT220 applications over telnet.
 
-It’s currently in very early development, everything thats checked in seems to be working, however there are still a lot of vt220 commands not implemented yet. I’m going on holiday and will probably begin development in earnist around the end of August.
+I don’t have a legacy VT220 application kicking around so I’m currently using the pico editor to develop this.
+
+It’s currently in very early development, everything thats checked in seems to be working, however there are still a lot of vt220 commands not implemented yet. I’m going on holiday and will probably begin development in earnest around the end of August.
 
 Getting Started
 ===============
@@ -14,6 +15,7 @@ On Ubuntu and probably all Debian like things you can do this by
 sudo apt-get install telnetd
 
 I’m very sure telnet isn’t considered secure these days so recommend using something like Uncomlicated fire wall to only allow local connections. I’ve also made a special account with almost no permission for testing this.
+
 Running Beltone
 
 Interactive Mode
@@ -22,7 +24,9 @@ From the root of the check out directory
 ruby bin/beltone.rb
 
 Unfortunately the name is incredibly misleading its not really all that interactive as yet. It will run pico for you then pretty much abandon you
+
 Unit Tests
+----------
 
 spec spec
 A complete ruby parsed VT220 screen will appear on the console in front of your very eyes!
