@@ -73,6 +73,14 @@ describe "Screen" do
       @screen.cursor_x.should == 1
       @screen.cursor_y.should == 0
     end
+
+    it "should set the cursors horizontal position" do
+      @screen.set_cursor 1,1
+      @screen.set_cursor_x 67
+      @screen.cursor_x.should == 67
+      @screen.cursor_y.should == 1
+
+    end
   end
 
   describe "erasing sections" do

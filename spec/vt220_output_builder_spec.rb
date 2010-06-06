@@ -25,6 +25,10 @@ describe "VT220 output builder" do
       @vt_command.set_cursor(64, 10).to_s.should match /^\e\[10;64[H|f]$/
     end
 
+    it "should move the cursor horizontally" do
+      @vt_command.set_cursor_x(10).to_s.should == "\e[10G"
+    end
+
     it "should move the cursor then write some text" do
       @vt_command.set_cursor(40, 1).text(" hello").to_s.should match /^\e\[1;40[H|f] hello$/
     end

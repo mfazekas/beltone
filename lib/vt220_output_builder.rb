@@ -37,9 +37,13 @@ class Vt220OutputBuilder
     self
   end
 
-  def move_cursor(direction, delta=1)
+  def move_cursor(direction, delta = 1)
     @output << "\e[#{delta}#{CURSOR_DIRECTION[direction]}"
     self
+  end
+
+  def set_cursor_x position
+    @output << "\e[#{position}G"
   end
 
   def home_cursor

@@ -21,6 +21,10 @@ class Screen
     @cursor_y = y
   end
 
+  def set_cursor_x position
+    set_cursor position
+  end
+
   def move_cursor_right delta = 1
     set_cursor @cursor_x + delta 
   end

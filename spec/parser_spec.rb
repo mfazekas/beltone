@@ -40,6 +40,10 @@ describe "moving the cursor" do
     @vt_output = Vt220OutputBuilder.new
   end
 
+  it "should set the cursors horizontal position" do
+     @mock_screen.should_receive(:set_cursor_x).with 14
+    @parser.parse_token @vt_output.set_cursor_x(15).to_s
+  end
 
   it "should move the cursor" do
     @mock_screen.should_receive(:set_cursor).with 2, 3
