@@ -51,7 +51,6 @@ Todo List
 * allow interactive mode to really send commands
 * make it work on windows as well as unix
 * Make it a gem
-* add rake
 * rcov
 * add cursor rules (stop it going of edge of screen)
 * set up a debug thing
