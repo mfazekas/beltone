@@ -7,7 +7,7 @@ class Parser
 
   def initialize screen
     @patterns = [
-            OutputPattern.new('text', /^([^\e|\016|\017|\r]+)/) {|text| screen.text text },
+            OutputPattern.new('printable text', /^([ -~]+)/) {|text| screen.text text },
             OutputPattern.new('set cursor', /^\e\[(\d+);(\d+)[H|f]/) {|y, x| screen.set_cursor x.to_i - 1, y.to_i - 1 },
             OutputPattern.new('erase to end of line', /^\e\[(\d)*([K|J])/) {
                     |direction, type| screen.send "erase_#{ERASE_DIRECTIONS[direction.to_i]}_of_#{ERASE_TYPES[type]}" },
