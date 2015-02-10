@@ -1,2 +1,2 @@
-gem 'rake', '0.8.7'
-gem 'rspec', '1.2.8'
+gem 'rake', '~> 10.4.2'
+gem 'rspec', '~> 2.3.0'

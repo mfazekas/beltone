@@ -7,15 +7,17 @@ class Screen
   HEIGHT = 24
   WIDTH = 80
 
-  def initialize
+  def initialize(options={})
     @cursor_x = 0
     @cursor_y = 0
+    @width = options[:width] || WIDTH
+    @height = options[:height] || HEIGHT
     erase_entire_of_screen
   end
 
   def set_cursor x, y = @cursor_y
-    x = 0 unless (0...WIDTH).include?(x)
-    y = 0 unless (0...HEIGHT).include?(y)
+    x = 0 unless (0...@width).include?(x)
+    y = 0 unless (0...@height).include?(y)
 
     @cursor_x = x
     @cursor_y = y
@@ -27,6 +29,11 @@ class Screen
 
   def move_cursor_right delta = 1
     set_cursor @cursor_x + delta 
+  end
+
+  def backspace
+    set_character ' '
+    set_cursor @cursor_x - 1
   end
 
   def set_character character
@@ -41,9 +48,11 @@ class Screen
   end
 
   def line line
+    byebug if line.nil?
     output = ""
     @lines.each do |vertical_line|
-      output << vertical_line[line].to_s
+      output << vertical_line[line].to_s if  vertical_line[line]
+      byebug unless  vertical_line[line]
     end
     output
   end
@@ -59,34 +68,35 @@ class Screen
   def erase_entire_of_screen
     @lines = Array.new
 
-    WIDTH.times do
+    @width.times do
       vertical_line = Array.new
-      HEIGHT.times do
+      @height.times do
         vertical_line << Cell.new
       end
       @lines << vertical_line
     end
+    set_cursor 0, 0
   end
 
   def erase_to_end_of_line
-    count = WIDTH - @cursor_x
+    count = @width - @cursor_x
     (0..count-1).each do |index|
       @lines[@cursor_x + index][@cursor_y].erase
     end
   end
 
   def display
-    output = '#' * (WIDTH + 2) + "\n"
-    (0..(HEIGHT - 1)).each do |y_index|
+    output = '#' * (@width + 2) + "\n"
+    (0..(@height - 1)).each do |y_index|
       output << "##{line y_index}#\n"
     end
-    output << '#' * (WIDTH + 2)
+    output << '#' * (@width + 2)
     output
   end
 
   def to_s
     output = ''
-    (0..(HEIGHT - 1)).each do |y_index|
+    (0..(@height - 1)).each do |y_index|
       output << "#{line(y_index)}\n"
     end
     output

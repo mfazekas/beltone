@@ -1,4 +1,3 @@
-require "spec"
 require "parser"
 require "screen"
 

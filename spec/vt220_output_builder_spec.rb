@@ -1,4 +1,3 @@
-require "spec"
 require "vt220_output_builder"
 
 describe "VT220 output builder" do

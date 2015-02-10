@@ -1,4 +1,3 @@
-require "spec"
 require "parser"
 require "vt220_output_builder"
 

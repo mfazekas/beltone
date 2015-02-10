@@ -1,8 +1,5 @@
-require 'gems/gem_deps'
-require 'spec/rake/spectask'
-
 task :default => [:spec]
+require "rspec/core/rake_task"
 
-Spec::Rake::SpecTask.new do |t|
-  t.libs = ['lib']
+RSpec::Core::RakeTask.new do |t|
 end

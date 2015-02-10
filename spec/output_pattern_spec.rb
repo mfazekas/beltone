@@ -1,4 +1,3 @@
-require "spec"
 require "output_pattern"
 require "vt220_output_builder"
 

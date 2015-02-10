@@ -1,4 +1,3 @@
-require "spec"
 require "screen"
 
 describe "Screen" do
